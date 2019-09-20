@@ -4,6 +4,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 
 import CharacterCard from './CharacterCard'
 import SearchForm from "./SearchForm";
+import SearchFormAPI from "./SearchFormAPI";
 
 
 export default function CharacterList() {
@@ -56,11 +57,15 @@ export default function CharacterList() {
           </Button>
         </Col>
       </Row>
-      <SearchForm 
-        characters={characters} 
-        displayedCharacters={displayedCharacters}
-        setDisplayedCharacters={setDisplayedCharacters} />
-
+        <SearchForm 
+          characters={characters} 
+          displayedCharacters={displayedCharacters}
+          setDisplayedCharacters={setDisplayedCharacters}
+        />
+        <SearchFormAPI
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage} 
+        />
       <Row>
         {displayedCharacters.map((character, index) => {
           // console.log(character);
