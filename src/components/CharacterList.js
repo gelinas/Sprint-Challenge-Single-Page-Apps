@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 import CharacterCard from './CharacterCard'
 import SearchForm from "./SearchForm";
@@ -10,6 +10,7 @@ export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [characters, setCharacters] = useState();
   const [displayedCharacters, setDisplayedCharacters] = useState();
+  const [characterPage, setCharacterPage] = useState()
   const [currentPage, setCurrentPage] = useState(`https://rickandmortyapi.com/api/character/`)
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function CharacterList() {
     axios
         .get(currentPage)
         .then(response => {
+          setCharacterPage(response.data);
           setCharacters(response.data.results);
           setDisplayedCharacters(response.data.results);
         })
@@ -30,13 +32,29 @@ export default function CharacterList() {
     return <div>Loading character information...</div>;
   }
 
+  console.log("characters", characters);
+  console.log("characterPage", characterPage);
+  console.log("currentPage", currentPage);
+
   return (
     <section className="character-list">
     <Container>
       <Row>
-      <Col xs="12" className="search-form d-flex justify-content-center mt-3">
-      <h2>The Characters of Rick and Morty</h2>
-      </Col>
+        <Col xs="12" className="search-form d-flex justify-content-center mt-3">
+         <h2>The Characters of Rick and Morty</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6" className="search-form d-flex justify-content-center mt-3">
+          <Button color="danger" onClick={() => setCurrentPage(characterPage.info.prev)}>
+          Previous Page!
+          </Button>
+        </Col>
+        <Col xs="6" className="search-form d-flex justify-content-center mt-3">
+          <Button color="success" onClick={() => setCurrentPage(characterPage.info.next)}>
+            Next Page!
+          </Button>
+        </Col>
       </Row>
       <SearchForm 
         characters={characters} 

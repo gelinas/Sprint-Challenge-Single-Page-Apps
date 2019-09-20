@@ -25,7 +25,7 @@ export default function SearchForm(props) {
         }}
         render={props => (
           <Form className="form-inline">
-            <Field type="text" name="search" placeholder="Search" className="form-control" />
+            <Field type="text" name="search" placeholder="Search this page" className="form-control" />
             <Button color="info" type="submit">Submit</Button>
           </Form>
         )}
