@@ -3,13 +3,11 @@ import { Formik, Form, Field } from 'formik';
 import { Row, Col, Button } from 'reactstrap';
 
 export default function SearchForm(props) {
-  let characters = props.characters;
-  let setDisplayedCharacters = props.setDisplayedCharacters;
+  let currentPage = props.currentPage;
+  let setCurrentPage = props.setCurrentPage;
 
   const filterResults = (criteria) => {
-    let filteredResults = characters.filter(character => character.name.includes(criteria));
-    console.log(filteredResults);
-    setDisplayedCharacters(filteredResults);
+    setCurrentPage(`https://rickandmortyapi.com/api/character/?name=${criteria}`);
   }
 
   return (
@@ -25,8 +23,8 @@ export default function SearchForm(props) {
         }}
         render={props => (
           <Form className="form-inline">
-            <Field type="text" name="search" placeholder="Search just this page" className="form-control" />
-            <Button color="info" type="submit">Page Search</Button>
+            <Field type="text" name="search" placeholder="Search by name" className="form-control" />
+            <Button color="info" type="submit">Search Entire Catalog</Button>
           </Form>
         )}
       />
